@@ -1,27 +1,30 @@
-# method for calculating compounded value over time
-def compound_value(prinipal, rate, time):
-    """
-    :param prinipal: Initial amount
-    :param rate: Percentage apprecitation / depreciation
-    :param time: duration in years
-    :return: value compunded over time period
-    """
-    time -= 1
-    rate /= 100.0
-    net_value = prinipal*pow((1+rate), time)
-    return net_value
 
 
-# method for calculating cummulative compounded value over time
-def cummulative_compound_value(principal, rate, time):
-    """
-    :param prinipal: Initial amount
-    :param rate: Percentage apprecitation / depreciation
-    :param time: duration in years
-    :return: cummulative value compunded over time period
-    """
-    time -= 1
-    rate /= 100.0
-    cummulative_value = principal*((1-pow(rate, time+1))/(1-rate))
-    return cummulative_value
+def upfront_costs(equity, closing_cost):
+    return -1 * (equity + closing_cost)
 
+
+def delta_summation(term, amount, rate, rate_delta, discount):
+    summation = 0
+    for i in range(term):
+        current_amount = amount*rate
+        summation += current_amount*(1-discount)
+        rate += rate*rate_delta
+    return summation
+
+
+def no_principal_summation(term, amount, rate, rate_delta):
+    summation = 0
+    for i in range(term):
+        calcRate = rate * pow(1+rate_delta,i-1)
+        totAmt = amount * calcRate
+        summation += totAmt
+    return summation
+
+
+def summation_of_percentation_of_interest_compound(term, amount, rate, percent_interest):
+    summation = 0
+    for i in range(term):
+        totAmt = amount * pow(1+rate, i-1) * percent_interest
+    summation += totAmt
+    return summation
