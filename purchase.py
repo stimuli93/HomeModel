@@ -5,3 +5,6 @@ class Purchase(object):
         self.debt_amount = debt_amount
         self.interest_rate = interest_rate
         self.term = term
+
+    def upfront_costs(self):
+        return self.equity + self.closing_cost
